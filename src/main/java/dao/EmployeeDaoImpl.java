@@ -35,7 +35,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public Employee findEmployeeById(int id) {
-        Employee employee = new Employee();
+        Employee employee = new Employee(15,"Sergey", "Rubtsov", "man", 36,new City(7,"Omsk"));
         try (
                 PreparedStatement statement = configConnect.getPreparedStatement(
                         "SELECT * FROM employee " +
