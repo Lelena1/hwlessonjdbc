@@ -9,12 +9,13 @@ import java.util.Objects;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
+@Builder
 
 @Entity
 @Table(name = "employee")
 public class Employee {
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(name = "first_name")
@@ -25,10 +26,15 @@ public class Employee {
     private String gender;
     @Column(name = "age")
     private Integer age;
-    @Column(name = "city_id")
-    private int city;
 
-    public Employee(String firstName, String lastName, String gender, Integer age, int city) {
+    //    @Column(name = "city_id")
+//    private int city;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "city_id")
+    private City city;
+
+
+    public Employee(String firstName, String lastName, String gender, Integer age, City city) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
@@ -51,6 +57,16 @@ public class Employee {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Employee: " +
+                "id = " + id +
+                ", firstName = " + firstName +
+                ", lastName = " + lastName +
+                ", gender = " + gender +
+                ", age = " + age;
     }
 }
 
